@@ -1,24 +1,19 @@
 package be.cegeka.demo.demo;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import be.cegeka.android_mvc.binder.Binder;
-import be.cegeka.android_mvc.binder.Subscriptions;
+import be.cegeka.android_mvc.Fragment;
+import be.cegeka.android_mvc.PresentationModel;
 
 public class MainFragment extends Fragment {
-
-    private MainModel model;
-    private Subscriptions subscriptions;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        model = new MainModel();
     }
 
     @Override
@@ -27,14 +22,7 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        subscriptions = Binder.bind(this, model);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        subscriptions.unsubscribe();
+    public PresentationModel createModel() {
+        return new MainModel();
     }
 }

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import java.lang.reflect.Field;
 import java.util.Observable;
 
+import be.cegeka.android_mvc.Property;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.subscriptions.BooleanSubscription;
@@ -20,7 +21,7 @@ import static rx.android.schedulers.AndroidSchedulers.mainThread;
 public class Binder {
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static Subscriptions bind(Fragment fragment, Object model) {
+    public static Subscriptions bindView(Fragment fragment, Object model) {
         try {
             return bind(fragment.getView(), model);
         } catch (IllegalAccessException e) {
@@ -96,9 +97,9 @@ public class Binder {
     private static void bind(final EditText view, final rx.Observable<String> field, Subscriptions subscriptions) {
         subscriptions.add(
                 field.observeOn(mainThread())
-                        .subscribe(new DefaultObserver<String>() {
+                        .subscribe(new Action1<String>() {
                             @Override
-                            public void onNext(String value) {
+                            public void call(String value) {
                                 if ((view.getText() == null && value != null) || !view.getText().toString().equals(value)) {
                                     view.setText(value);
                                 }

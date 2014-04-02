@@ -1,4 +1,4 @@
-package be.cegeka.android_mvc.binder;
+package be.cegeka.android_mvc;
 
 import rx.Observable;
 import rx.Observer;
@@ -48,7 +48,7 @@ public class Property<T> implements Observer<T> {
         return new Property<T>(BehaviorSubject.create((T) null));
     }
 
-    public static <T> Property<T> create(T value) {
+    public static <T> Property<T> newProperty(T value) {
         return new Property<T>(BehaviorSubject.create(value));
     }
 
