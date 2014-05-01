@@ -59,8 +59,9 @@ public class Binder {
         }
 
         field.setAccessible(true);
-        BindStrategy strategy = findBindStrategy(view, field, annotation);
-        strategy.bind(view, field, annotation, subscriptions);
+        Object fieldValue = field.get(model);
+        BindStrategy strategy = findBindStrategy(view, fieldValue, annotation);
+        strategy.bind(view, fieldValue, annotation, subscriptions);
     }
 
     private BindStrategy findBindStrategy(View view, Object field, Bind annotation) {
