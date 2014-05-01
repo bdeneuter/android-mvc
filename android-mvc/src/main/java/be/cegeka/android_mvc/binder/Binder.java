@@ -16,7 +16,12 @@ public class Binder {
     private List<BindStrategy> strategies = new ArrayList<>();
 
     private Binder() {
+        strategies.add(new VisibleBindStrategy());
         strategies.add(new EditTextStrategy());
+    }
+
+    public static void addBindStrategy(BindStrategy bindStrategy) {
+        BINDER.strategies.add(bindStrategy);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
